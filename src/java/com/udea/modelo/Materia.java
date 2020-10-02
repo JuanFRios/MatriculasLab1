@@ -38,6 +38,9 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Materia implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "materia")
+    private Collection<Matricula> matriculaCollection;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "materia")
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -137,6 +140,15 @@ public class Materia implements Serializable {
     @Override
     public String toString() {
         return "com.udea.modelo.Materia[ codigo=" + codigo + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Matricula> getMatriculaCollection() {
+        return matriculaCollection;
+    }
+
+    public void setMatriculaCollection(Collection<Matricula> matriculaCollection) {
+        this.matriculaCollection = matriculaCollection;
     }
 
    

@@ -41,6 +41,9 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Estudiante implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "estudiante")
+    private Collection<Matricula> matriculaCollection;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "estudiante")
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -158,6 +161,15 @@ public class Estudiante implements Serializable {
     @Override
     public String toString() {
         return "com.udea.modelo.Estudiante[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Matricula> getMatriculaCollection() {
+        return matriculaCollection;
+    }
+
+    public void setMatriculaCollection(Collection<Matricula> matriculaCollection) {
+        this.matriculaCollection = matriculaCollection;
     }
 
    
