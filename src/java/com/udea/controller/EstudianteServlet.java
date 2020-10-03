@@ -79,8 +79,15 @@ public class EstudianteServlet extends HttpServlet {
                 int id = Integer.parseInt(request.getParameter("txtId"));
                 String nombre = request.getParameter("txtNombre");
                 String correo = request.getParameter("txtCorreo");
-                String contrasena = request.getParameter("txtContrasena");
+                String contrasena = request.getParameter("txtContrasena");                
                 Estudiante a = estudianteFacade.find(id);
+                a.setContrasena(contrasena);
+                a.setNombre(nombre);
+                a.setCorreo(correo);             
+                request.getSession().removeAttribute("login");
+                estudianteFacade.edit(a);
+                request.getSession().setAttribute("login", a);
+                url="principal.jsp";
                 
             }
             
