@@ -14,6 +14,7 @@
         <title>JSP Page</title>
     </head>
     <style>      
+
         .profile {
             margin: 10px 0;
         }
@@ -78,15 +79,27 @@
             background: #F1F3FA;
             min-height: 460px;
         }
+
+        .center {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+        }
     </style>
     <body>
         <jsp:include page="menu.jsp"></jsp:include>
             <div class="row profile">
                 <div class="col-md-4">
                     <div class="profile-sidebar">
+                        <div class="form-row">
+                            <div class="col-xs-12 col-sm-3 center">
+                                <img class="editable img-responsive center" alt=" Avatar" id="avatar2" src="${login.getImagen()}">
+                        </div><!-- /.col -->
 
-                        <div class="profile-usertitle">
-                            <div class="profile-usertitle-name" >
+                    </div>
+                    <div class="profile-usertitle">
+                        <div class="profile-usertitle-name" >
                             ${login.getNombre()} <br>
                             ${login.getId()}
                         </div>
@@ -137,16 +150,19 @@
                                     <label >Correo Electrónico</label>
                                     <input type="text" class="form-control"  name="txtCorreo" value="${login.getCorreo()}">
                                 </div>
-
                             </div>
-
-
-
+                            <!--
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label >Foto: </label>
+                                    <input type="file" name="photo" accept="image/*" size="25">
+                                </div>
+                            </div>  
+                            -->
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>                            
                             <input type="submit" name="action" value="editar" class="btn btn-success ">
-
                         </div>
                     </form>
 

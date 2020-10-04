@@ -64,8 +64,7 @@ public class MatriculaServlet extends HttpServlet {
                              System.out.println(materia.getNombre());
                 }
                 request.getSession().setAttribute("materias", matricula);
-            }
-            
+            } 
             response.sendRedirect(url);
         } finally{
             out.close();
