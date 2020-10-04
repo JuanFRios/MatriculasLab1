@@ -14,16 +14,10 @@
 <c:if test="${not empty login}">
     <div class="navbar">
         <!-- Button trigger modal -->
-        
-        <a class="btn btn-outline-success" href="EstudianteServlet?action=list">Mi perfil</a>
-        
         <form class="form-inline">
-            <input type="search" name="txtBuscar" class="form-control">
-            <input type="submit" name="accion" value="Buscar" class="btn btn-outline-success">
             <a class="btn btn-outline-success" href="EstudianteServlet?action=logout">Salir</a>
         </form>
     </div>
-    
 </c:if>
 
 <hr/>
