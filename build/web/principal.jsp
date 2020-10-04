@@ -102,6 +102,13 @@
                 </div>
             </div>           
             <div class="col-md-8" style="height: 430px;">
+                <div class="navbar">
+                    <form class="form-inline">
+                        <a class="btn btn-outline-success" href="MatriculaServlet?action=listar" target="miFrame">Constancia de Matricula</a>
+                        <a class="btn btn-outline-success" href="MatriculaServlet?action=oferta" target="miFrame">Editar Matricula</a>
+                    </form>
+
+                </div>
                 <iframe src="MatriculaServlet?action=listar" name="miFrame" style="height: 100%; width: 100%; border: none"> </iframe>
             </div>
         </div>

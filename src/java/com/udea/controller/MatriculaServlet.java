@@ -10,6 +10,7 @@ import com.udea.ejb.MatriculaFacadeLocal;
 import com.udea.modelo.Estudiante;
 import com.udea.modelo.Materia;
 import com.udea.modelo.Matricula;
+import com.udea.modelo.MatriculaPK;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -33,7 +34,6 @@ public class MatriculaServlet extends HttpServlet {
     @EJB
     private MatriculaFacadeLocal matriculaFacade;
 
-    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -48,28 +48,61 @@ public class MatriculaServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            String action= request.getParameter("action");
-            String url= "matricula.jsp";
-            if(action.equals("listar")){
-                Estudiante e = (Estudiante)request.getSession().getAttribute("login");
-                List<Matricula> matricula = matriculaFacade.listarPorEstudiante(e.getId());
-                Iterator iter = matricula.iterator();
-                List<Materia> materias =new ArrayList<>();
-                Materia materia;
-                Matricula m =null;
-                while (iter.hasNext()) {
-                             m = (Matricula) iter.next();
-                             materia = materiaFacade.find(m.getMatriculaPK().getCodigoMateria());
-                             materias.add(materia);
-                             System.out.println(materia.getNombre());
-                }
-                request.getSession().setAttribute("materias", matricula);
+            String action = request.getParameter("action");
+            String url = "matricula.jsp";
+            if (action.equals("listar")) {
+                Estudiante e = (Estudiante) request.getSession().getAttribute("login");
+                
+                List<Materia> materias = acualizarMatricula(e.getId());
+                request.getSession().setAttribute("materias", materias);
+                List<Materia> oferta = materiaFacade.findAll();
+                request.getSession().setAttribute("oferta", oferta);
+                url = "matricula.jsp";
+            } else if (action.equals("oferta")) {
+                url = "oferta.jsp";
+            } else if (action.equals("cancelar")) {
+                String codigoString = request.getParameter("codigo");
+                int codigo = Integer.parseInt(codigoString);
+                Estudiante e = (Estudiante) request.getSession().getAttribute("login");
+                MatriculaPK id = new MatriculaPK(e.getId(), codigo);
+                matriculaFacade.remove(matriculaFacade.find(id));
+                List<Materia> materias = acualizarMatricula(e.getId());
+                request.getSession().setAttribute("materias", materias);
+                List<Materia> oferta = materiaFacade.findAll();
+                request.getSession().setAttribute("oferta", oferta);
+                url = "oferta.jsp";
+            }else if (action.equals("matricular")){
+                String codigoString = request.getParameter("codigo");
+                int codigo = Integer.parseInt(codigoString);
+                Estudiante e = (Estudiante) request.getSession().getAttribute("login");
+                Matricula matricula = new Matricula(e.getId(), codigo);
+                matricula.setSemestre("2020-2");
+                matriculaFacade.create(matricula);
+                List<Materia> materias = acualizarMatricula(e.getId());
+                request.getSession().setAttribute("materias", materias);
+                List<Materia> oferta = materiaFacade.findAll();
+                request.getSession().setAttribute("oferta", oferta);
+                url = "oferta.jsp";
             }
-            
+
             response.sendRedirect(url);
-        } finally{
+        } finally {
             out.close();
         }
+    }
+
+    private List acualizarMatricula(int id) {
+        List<Matricula> matricula = matriculaFacade.listarPorEstudiante(id);
+        Iterator iter = matricula.iterator();
+        List<Materia> materias = new ArrayList<>();
+        Materia materia;
+        Matricula m;
+        while (iter.hasNext()) {
+            m = (Matricula) iter.next();
+            materia = materiaFacade.find(m.getMatriculaPK().getCodigoMateria());
+            materias.add(materia);
+        }        
+        return materias;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
