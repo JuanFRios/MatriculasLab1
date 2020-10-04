@@ -84,7 +84,6 @@ public class MatriculaServlet extends HttpServlet {
                 request.getSession().setAttribute("oferta", oferta);
                 url = "oferta.jsp";
             }
-
             response.sendRedirect(url);
         } finally {
             out.close();

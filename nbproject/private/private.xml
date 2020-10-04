@@ -5,7 +5,10 @@
         <group>
             <file>file:/C:/Users/Juan%20Gutierrez/Desktop/MatriculasLab1/web/principal.jsp</file>
             <file>file:/C:/Users/Juan%20Gutierrez/Desktop/MatriculasLab1/src/java/com/udea/controller/EstudianteServlet.java</file>
+<<<<<<< HEAD
             <file>file:/C:/Users/Juan%20Gutierrez/Desktop/MatriculasLab1/web/WEB-INF/glassfish-resources.xml</file>
+=======
+>>>>>>> gutiExperimental
         </group>
     </open-files>
 </project-private>
