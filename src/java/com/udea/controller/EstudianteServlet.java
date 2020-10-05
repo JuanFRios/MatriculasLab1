@@ -107,20 +107,27 @@ public class EstudianteServlet extends HttpServlet {
                 String correo = request.getParameter("txtCorreo");
                 String contrasena = request.getParameter("txtContrasena");
                 //  Upload photo
-                Part filePart = request.getPart("imgPhoto");
-                
-                String photoExt = getExt(filePart.getSubmittedFileName());
-                String photoName = "photo"+Integer.toString(id)+"."+photoExt;
-                String photoPath = getServletContext().getRealPath("/"+"files"+File.separator);
-
-                boolean succs = uploadPhoto(filePart, photoPath, photoName);
-
+                boolean succs, notEmpty = false;
                 Estudiante a = estudianteFacade.find(id);
+                
+                if (request.getPart("imgPhoto").getSize() > 0) {
+                    notEmpty = true;
+                    Part filePart = request.getPart("imgPhoto");
+
+                    String photoExt = getExt(filePart.getSubmittedFileName());
+                    String photoName = "photo"+Integer.toString(id)+"."+photoExt;
+                    String photoPath = getServletContext().getRealPath("/"+"files"+File.separator);
+                    
+                    succs = uploadPhoto(filePart, photoPath, photoName);
+                    
+                    if (succs && notEmpty) {
+                        a.setImagen("files" + File.separator + photoName);
+                    }
+                }
+                
                 a.setContrasena(contrasena);
                 a.setNombre(nombre);
                 a.setCorreo(correo);
-                if (succs) 
-                    a.setImagen("files" + File.separator + photoName);
                 request.getSession().removeAttribute("login");
                 estudianteFacade.edit(a);
                 request.getSession().setAttribute("login", a);
