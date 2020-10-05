@@ -100,7 +100,7 @@ public class EstudianteServlet extends HttpServlet {
             } else if ("logout".equals(action)) {
                 request.getSession().removeAttribute("login");
                 url = "login.jsp";
-                
+             
             } else if ("editar".equals(action)) {
                 int id = Integer.parseInt(request.getParameter("txtId"));
                 String nombre = request.getParameter("txtNombre");
@@ -116,15 +116,12 @@ public class EstudianteServlet extends HttpServlet {
 
                     String photoExt = getExt(filePart.getSubmittedFileName());
                     String photoName = "photo"+Integer.toString(id)+"."+photoExt;
-                    String photoPath = getServletContext().getRealPath("/"+"files"+File.separator);
+                    String photoPath = getServletContext().getRealPath("/"+"img"+File.separator);
                     
                     succs = uploadPhoto(filePart, photoPath, photoName);
-                    
-                    if (succs && notEmpty) {
-                        a.setImagen("files" + File.separator + photoName);
-                    }
+
+                    a.setImagen("img" + File.separator + photoName);
                 }
-                
                 a.setContrasena(contrasena);
                 a.setNombre(nombre);
                 a.setCorreo(correo);
