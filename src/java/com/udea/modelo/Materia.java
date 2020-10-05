@@ -42,20 +42,20 @@ public class Materia implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "codigo")
+//    @NotNull
+    @Column(name = "codigo", nullable = false)
     private Integer codigo;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "nombre")
+//    @NotNull
+//    @Size(min = 1, max = 50)
+    @Column(name = "nombre", nullable = false, length = 50)
     private String nombre;
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "creditos")
+//    @NotNull
+    @Column(name = "creditos", nullable = false)
     private int creditos;
-    @Size(max = 50)
-    @Column(name = "facultad")
+//    @Size(max = 50)
+    @Column(name = "facultad", length = 50)
     private String facultad;
     @ManyToMany(mappedBy = "materiaCollection")
     private Collection<Estudiante> estudianteCollection;

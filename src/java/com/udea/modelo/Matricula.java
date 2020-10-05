@@ -32,8 +32,8 @@ public class Matricula implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected MatriculaPK matriculaPK;
-    @Size(max = 45)
-    @Column(name = "semestre")
+//    @Size(max = 45)
+    @Column(name = "semestre", length = 45)
     private String semestre;
 
     public Matricula() {

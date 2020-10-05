@@ -12,8 +12,11 @@ import com.udea.modelo.Estudiante;
 import com.udea.modelo.Materia;
 import com.udea.modelo.Matricula;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -21,7 +24,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,6 +36,7 @@ import javax.servlet.http.Part;
  *
  * @author juan
  */
+@MultipartConfig
 public class EstudianteServlet extends HttpServlet {
 
     @EJB
@@ -54,7 +60,7 @@ public class EstudianteServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
+        PrintWriter writer = response.getWriter();
         try {
             String action = request.getParameter("action");
             String url = "index.jsp";
@@ -90,18 +96,31 @@ public class EstudianteServlet extends HttpServlet {
                 Estudiante a = estudianteFacade.find(Integer.valueOf(id));
                 estudianteFacade.remove(a);
                 url = "EstudianteServlet?action=list";
+                
             } else if ("logout".equals(action)) {
                 request.getSession().removeAttribute("login");
                 url = "login.jsp";
+                
             } else if ("editar".equals(action)) {
                 int id = Integer.parseInt(request.getParameter("txtId"));
                 String nombre = request.getParameter("txtNombre");
                 String correo = request.getParameter("txtCorreo");
                 String contrasena = request.getParameter("txtContrasena");
+                //  Upload photo
+                Part filePart = request.getPart("imgPhoto");
+                
+                String photoExt = getExt(filePart.getSubmittedFileName());
+                String photoName = "photo"+Integer.toString(id)+"."+photoExt;
+                String photoPath = getServletContext().getRealPath("/"+"files"+File.separator);
+
+                boolean succs = uploadPhoto(filePart, photoPath, photoName);
+
                 Estudiante a = estudianteFacade.find(id);
                 a.setContrasena(contrasena);
                 a.setNombre(nombre);
                 a.setCorreo(correo);
+                if (succs) 
+                    a.setImagen("files" + File.separator + photoName);
                 request.getSession().removeAttribute("login");
                 estudianteFacade.edit(a);
                 request.getSession().setAttribute("login", a);
@@ -138,7 +157,7 @@ public class EstudianteServlet extends HttpServlet {
             }
             response.sendRedirect(url);
         } finally {
-            out.close();
+            writer.close();
         }
     }
 
@@ -181,15 +200,37 @@ public class EstudianteServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void savePhoto(Part filePart, String fileName) {
-        String aux = getServletContext().getRealPath("/") + File.separator + "Vehicles";
-        File uploads = new File(aux);
-        File file = new File(uploads, fileName);
-        try (InputStream input = filePart.getInputStream()) {
-            Files.copy(input, file.toPath());
-        } catch (Exception e) {
-            System.err.println("ERROR: " + e.getMessage());
+    private boolean uploadPhoto (Part filePart, String photoPath, String photoName) throws IOException {
+        
+        boolean exit;
+        
+        InputStream filecontent = null;
+        OutputStream outs = null;
+
+        try {
+            outs = new FileOutputStream(new File(photoPath + File.separator + photoName));
+            filecontent = filePart.getInputStream();
+
+            int read = 0;
+            final byte[] bytes = new byte[1024];
+
+            while ((read = filecontent.read(bytes)) != -1) {
+                outs.write(bytes, 0, read);
+            }
+            
+            exit = true;
+
+        } catch (FileNotFoundException fne) {
+            exit = false;
+        } finally {
+            if (outs != null) {
+                outs.close();
+            }
+            if (filecontent != null) {
+                filecontent.close();
+            }
         }
+        return exit;
     }
     
     private String getExt(String nombreArchivo) {
