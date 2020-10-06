@@ -88,19 +88,23 @@ public class EstudianteServlet extends HttpServlet {
                 a.setContrasena(request.getParameter("password"));
                 a.setCorreo(request.getParameter("email"));
                 a.setImagen("img/nopicture.png");
-                estudianteFacade.create(a);
-                url = "login.jsp";
+                if (estudianteFacade.find(a.getId()) != null) {
+                    url = "nuevaCuenta.jsp?err=1";
+                } else {
+                    estudianteFacade.create(a);
+                    url = "login.jsp";
+                }
 
             } else if ("delete".equals(action)) {
                 String id = request.getParameter("id");
                 Estudiante a = estudianteFacade.find(Integer.valueOf(id));
                 estudianteFacade.remove(a);
                 url = "EstudianteServlet?action=list";
-                
+
             } else if ("logout".equals(action)) {
                 request.getSession().removeAttribute("login");
                 url = "login.jsp";
-             
+
             } else if ("editar".equals(action)) {
                 int id = Integer.parseInt(request.getParameter("txtId"));
                 String nombre = request.getParameter("txtNombre");
@@ -109,15 +113,15 @@ public class EstudianteServlet extends HttpServlet {
                 //  Upload photo
                 boolean succs, notEmpty = false;
                 Estudiante a = estudianteFacade.find(id);
-                
+
                 if (request.getPart("imgPhoto").getSize() > 0) {
                     notEmpty = true;
                     Part filePart = request.getPart("imgPhoto");
 
                     String photoExt = getExt(filePart.getSubmittedFileName());
-                    String photoName = "photo"+Integer.toString(id)+"."+photoExt;
-                    String photoPath = getServletContext().getRealPath("/"+"img"+File.separator);
-                    
+                    String photoName = "photo" + Integer.toString(id) + "." + photoExt;
+                    String photoPath = getServletContext().getRealPath("/" + "img" + File.separator);
+
                     succs = uploadPhoto(filePart, photoPath, photoName);
 
                     a.setImagen("img" + File.separator + photoName);
@@ -129,7 +133,7 @@ public class EstudianteServlet extends HttpServlet {
                 estudianteFacade.edit(a);
                 request.getSession().setAttribute("login", a);
                 url = "principal.jsp";
-            } else if ("find".equals(action)) {
+            } else if ("Buscar".equals(action)) {
                 String idString = request.getParameter("id");
                 if (!idString.equals("")) {
                     int id = Integer.parseInt(request.getParameter("id"));
@@ -149,10 +153,12 @@ public class EstudianteServlet extends HttpServlet {
                         }
                         if (!materias.isEmpty()) {
                             request.getSession().setAttribute("materias", materias);
+                            
                         } else {
                             url = "index.jsp?banderita=1";
                         }
                     } else {
+                        request.getSession().removeAttribute("estudiante");
                         url = "index.jsp?bandera=1";
                     }
                 } else {
@@ -204,10 +210,10 @@ public class EstudianteServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private boolean uploadPhoto (Part filePart, String photoPath, String photoName) throws IOException {
-        
+    private boolean uploadPhoto(Part filePart, String photoPath, String photoName) throws IOException {
+
         boolean exit;
-        
+
         InputStream filecontent = null;
         OutputStream outs = null;
 
@@ -221,7 +227,7 @@ public class EstudianteServlet extends HttpServlet {
             while ((read = filecontent.read(bytes)) != -1) {
                 outs.write(bytes, 0, read);
             }
-            
+
             exit = true;
 
         } catch (FileNotFoundException fne) {
@@ -236,7 +242,7 @@ public class EstudianteServlet extends HttpServlet {
         }
         return exit;
     }
-    
+
     private String getExt(String nombreArchivo) {
         String extension = "";
         int i = nombreArchivo.lastIndexOf('.');
