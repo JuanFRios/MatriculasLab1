@@ -11,7 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <title>JSP Page</title>
+        <title>Mi perfil</title>
     </head>
     <style>      
 
@@ -117,7 +117,7 @@
             <div class="col-md-8" style="height: 430px;">
                 <div class="navbar">
                     <form class="form-inline">
-                        <a class="btn btn-outline-success" href="MatriculaServlet?action=listar" target="miFrame">Constancia de Matricula</a>
+                        <a class="btn btn-outline-success mr-3" href="MatriculaServlet?action=listar" target="miFrame">Constancia de Matricula</a>
                         <a class="btn btn-outline-success" href="MatriculaServlet?action=oferta" target="miFrame">Editar Matricula</a>
                     </form>
 
