@@ -1379,12 +1379,15 @@
     <body>
         <jsp:include page="menu.jsp"></jsp:include>
 
-            <h1>PAGINA PARA GESTIÓN DE ESTUDIANTES</h1>
-
-            <form class="form-inline my-2 my-lg-0" action="EstudianteServlet?action=find">
-                <input class="form-control mr-sm-2" type="search" name="id" placeholder="Buscar" aria-label="Search">
-                <input class="btn icon-btn btn-success" type="submit" name="action" value="find"> 
-            </form>		
+            <div class="modal-content text-center" style="padding: 10px;margin: 15px 0px">
+                <h1>Gestión de estudiantes</h1>
+                <form class="form-inline my-2 my-lg-0" action="EstudianteServlet?action=find">
+                    <div class="col-12">
+                        <input class="form-control mr-sm-2" type="search" name="id" placeholder="Identificación" aria-label="Search">
+                        <input class="btn icon-btn btn-success" type="submit" name="action" value="find">
+                    </div>
+                </form>
+            </div>
         <c:if test="${param.bandera==1}"> 
             <font color="red">Usuario no encontrado</font> 
         </c:if> 

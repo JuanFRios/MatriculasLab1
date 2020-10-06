@@ -11,7 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <title>JSP Page</title>
+        <title>Mi perfil</title>
     </head>
     <style>      
 
@@ -117,7 +117,7 @@
             <div class="col-md-8" style="height: 430px;">
                 <div class="navbar">
                     <form class="form-inline">
-                        <a class="btn btn-outline-success" href="MatriculaServlet?action=listar" target="miFrame">Constancia de Matricula</a>
+                        <a class="btn btn-outline-success mr-3" href="MatriculaServlet?action=listar" target="miFrame">Constancia de Matricula</a>
                         <a class="btn btn-outline-success" href="MatriculaServlet?action=oferta" target="miFrame">Editar Matricula</a>
                     </form>
 
@@ -129,7 +129,7 @@
         <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <form action="EstudianteServlet" method="POST">
+                    <form action="EstudianteServlet" method="POST" enctype="multipart/form-data">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLongTitle">Editar información</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -158,14 +158,12 @@
                                     <input type="text" class="form-control"  name="txtCorreo" value="${login.getCorreo()}">
                                 </div>
                             </div>
-                            <!--
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label >Foto: </label>
-                                    <input type="file" name="photo" accept="image/*" size="25">
+                                    <input type="file" name="imgPhoto" accept="image/*" size="25">
                                 </div>
                             </div>  
-                            -->
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>                            
