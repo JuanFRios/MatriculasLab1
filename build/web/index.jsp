@@ -1383,12 +1383,12 @@
                 <h1>Gestión de estudiantes</h1>
                 <form class="form-inline my-2 my-lg-0" action="EstudianteServlet?action=find">
                     <div class="col-12">
-
                         <input class="form-control mr-sm-2" type="number" name="id" placeholder="Identificación" aria-label="Search">
                         <input class="btn icon-btn btn-success"  type="submit" name="action" value="Buscar">
                     </div>
                 </form>
             </div>
+        
         <c:if test="${param.bandera==1}"> 
             <font color="red">Usuario no encontrado</font> 
         </c:if> 
