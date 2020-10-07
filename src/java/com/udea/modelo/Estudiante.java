@@ -45,8 +45,8 @@ public class Estudiante implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "id")
+//    @NotNull
+    @Column(name = "id", nullable=false)
     private Integer id;
     @Basic(optional = false)
 //    @NotNull
@@ -63,8 +63,9 @@ public class Estudiante implements Serializable {
 //    @Size(min = 1, max = 50)
     @Column(name = "contrasena", length=50, nullable=false)
     private String contrasena;
+//    @NotNull
 //    @Size(max = 50)
-    @Column(name = "imagen", length=50)
+    @Column(name = "imagen", length = 200, nullable = false)
     private String imagen;
     @JoinTable(name = "matricula", joinColumns = {
         @JoinColumn(name = "idEstudiante", referencedColumnName = "id")}, inverseJoinColumns = {

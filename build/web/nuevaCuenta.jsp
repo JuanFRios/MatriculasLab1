@@ -5,47 +5,69 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 <html> 
     <head> 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
-        <title>JSP Page</title> 
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> 
-        <link rel="stylesheet" href="style.css"> <!-- Optional theme--> <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"> 
-        <!-- Latest compiled and minified JavaScript --> <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> 
+        <title>Registrarse</title>
     </head> 
     <body> 
-        <jsp:include page="menu.jsp"></jsp:include> 
-        <div class="container well"> 
-            <div align="center"> 
-                <form action="EstudianteServlet?action=insert" method="post"> 
-                    <table> 
-                        <tr> 
-                            <th><label><b>Identificación:</b></label>
-                            <th> <input type="number" placeholder="Digite la Identificación" class="form-control" name="id" required=""/> </th> 
-                        </tr> 
-                        <tr> 
-                            <th><label><b>Nombre:</b></label>
-                            <th> <input type="text" placeholder="Escriba su nombre" class="form-control" name="username" required=""/> </th> 
-                        </tr> 
-                        <tr> 
-                            <th><label><b>Contraseña:</b></label></th> 
-                            <th> <input type="password" placeholder="Defina una contraseña" class="form-control" name="password" required=""/> </th> 
-                        </tr> 
-                        <tr> 
-                            <th><label><b>E-mail:</b></label></th> 
-                            <th> <input type="email" placeholder="Escriba su E-mail" class="form-control" name="email" required=""/> </th> 
-                        </tr> 
-                        <div class="break"></div>
-                        <tr> 
-                            <td colspan="2"> <input class="btn icon-btn btn-success" type="submit" name="action" value="Insert"> <span class="glyphicon glyphicon-ok-sign"></span> 
-                                <input class="btn icon-btn btn-lg" type="reset" name="action" value="Reset"> <span class="glyphicon glyphicon-remove"></span> 
-                            </td> 
-                        </tr> 
-                    </table> 
-                </form> 
-            </div> 
-            <br> 
-        </div> 
+        <jsp:include page="menu.jsp"></jsp:include>
+<<<<<<< HEAD
+        <div class="modal-dialog text-center">
+            <div class="col-sm-8" style="margin: 0 auto;margin-top: 25%;padding: 0">
+                <div class="modal-content" style="background-color: #AAAAAA;padding: 20px 20px;box-shadow: 0px 0px 3px #848484;border-radius: 5px">
+                    <form action="EstudianteServlet?action=insert" method="post" class="col-12">
+                        <div class="form-group">
+                            <input type="number" class="form-control" placeholder="Identificación" name="id" required="" style="height: 42px;font-size: 18px;border: 0;border-radius: 5px"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Nombre" name="username" required="" style="height: 42px;font-size: 18px;border: 0;border-radius: 5px"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" placeholder="Contraseña" name="password" required="" style="height: 42px;font-size: 18px;border: 0;border-radius: 5px"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Email" name="email" required="" style="height: 42px;font-size: 18px;border: 0;border-radius: 5px"/>
+                        </div>
+                        <div>
+                            <button type="submit" name="action" class="btn btn-success mr-2">Registrarse</button>
+                            <button type="reset" name="action" class="btn btn-outline-primary">Reiniciar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </body> 
+=======
+    <c:if test="${param.err==1}">
+        <font color="red">Usuario ya registrado. Intentelo de nuevo</font> 
+    </c:if>
+    <div class="modal-dialog text-center">
+        <div class="col-sm-8" style="margin: 0 auto;margin-top: 25%;padding: 0">
+            <div class="modal-content" style="background-color: #AAAAAA;padding: 20px 20px;box-shadow: 0px 0px 3px #848484;border-radius: 5px">
+                <form action="EstudianteServlet?action=insert" method="post" class="col-12">
+                    <div class="form-group">
+                        <input type="number" class="form-control" placeholder="Identificación" name="id" required="" style="height: 42px;font-size: 18px;border: 0;border-radius: 5px"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Nombre" name="username" required="" style="height: 42px;font-size: 18px;border: 0;border-radius: 5px"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" placeholder="Contraseña" name="password" required="" style="height: 42px;font-size: 18px;border: 0;border-radius: 5px"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control" placeholder="Email" name="email" required="" style="height: 42px;font-size: 18px;border: 0;border-radius: 5px"/>
+                    </div>
+                    <div>
+                        <button type="submit" name="action" class="btn btn-success mr-2">Registrarse</button>
+                        <button type="reset" name="action" class="btn btn-outline-primary">Reiniciar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body> 
+>>>>>>> feature-refact-front
 </html> 

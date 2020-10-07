@@ -11,9 +11,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <title>JSP Page</title>
+        <title>Mi perfil</title>
     </head>
     <style>      
+
         .profile {
             margin: 10px 0;
         }
@@ -78,19 +79,31 @@
             background: #F1F3FA;
             min-height: 460px;
         }
+
+        .center {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+        }
     </style>
     <body>
         <jsp:include page="menu.jsp"></jsp:include>
-        <div class="row profile">
-            <div class="col-md-4">
-                <div class="profile-sidebar">
+            <div class="row profile">
+                <div class="col-md-4">
+                    <div class="profile-sidebar">
+                        <div class="form-row">
+                            <div class="col-xs-12 col-sm-3 center">
+                                <img class="editable img-responsive center" alt=" Avatar" id="avatar2" src="${login.getImagen()}">
+                        </div><!-- /.col -->
 
+                    </div>
                     <div class="profile-usertitle">
                         <div class="profile-usertitle-name" >
                             ${login.getNombre()} <br>
                             ${login.getId()}
                         </div>
-                            
+
                         <div class="profile-usertitle-name" style="color: #A4A4A4;">
                             Estudiante<br>
                             E-mail: ${login.getCorreo()}<br>
@@ -101,13 +114,22 @@
                     </div>
                 </div>
             </div>           
+            <div class="col-md-8" style="height: 430px;">
+                <div class="navbar">
+                    <form class="form-inline">
+                        <a class="btn btn-outline-success mr-3" href="MatriculaServlet?action=listar" target="miFrame">Constancia de Matricula</a>
+                        <a class="btn btn-outline-success" href="MatriculaServlet?action=oferta" target="miFrame">Editar Matricula</a>
+                    </form>
 
+                </div>
+                <iframe src="MatriculaServlet?action=listar" name="miFrame" style="height: 100%; width: 100%; border: none"> </iframe>
+            </div>
         </div>
-                        
+
         <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <form action="EstudianteServlet" method="POST">
+                    <form action="EstudianteServlet" method="POST" enctype="multipart/form-data">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLongTitle">Editar información</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -135,24 +157,25 @@
                                     <label >Correo Electrónico</label>
                                     <input type="text" class="form-control"  name="txtCorreo" value="${login.getCorreo()}">
                                 </div>
-
                             </div>
-                            
-
-
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label >Foto: </label>
+                                    <input type="file" name="imgPhoto" accept="image/*" size="25">
+                                </div>
+                            </div>  
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>                            
                             <input type="submit" name="action" value="editar" class="btn btn-success ">
-
                         </div>
                     </form>
 
                 </div>
             </div>
         </div>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>               
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>               
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     </body>
 </html>

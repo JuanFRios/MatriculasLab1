@@ -4,9 +4,17 @@
         <servlet-name>EstudianteServlet</servlet-name>
         <servlet-class>com.udea.controller.EstudianteServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MatriculaServlet</servlet-name>
+        <servlet-class>com.udea.controller.MatriculaServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>EstudianteServlet</servlet-name>
         <url-pattern>/EstudianteServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MatriculaServlet</servlet-name>
+        <url-pattern>/MatriculaServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

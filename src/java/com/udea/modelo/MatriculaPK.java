@@ -19,12 +19,12 @@ import javax.validation.constraints.NotNull;
 public class MatriculaPK implements Serializable {
 
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "idEstudiante")
+//    @NotNull
+    @Column(name = "idEstudiante", nullable = false)
     private int idEstudiante;
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "codigoMateria")
+//    @NotNull
+    @Column(name = "codigoMateria", nullable = false)
     private int codigoMateria;
 
     public MatriculaPK() {

@@ -9,44 +9,35 @@
 <!DOCTYPE html> 
 <html> 
     <head> 
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> 
-        <link rel="stylesheet" href="style.css"> <!-- Optional theme --> <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"> 
-        <!-- Latest compiled and minified JavaScript --> <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-        <title>JSP Page</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Iniciar sesión</title>
     </head> 
     <body> 
         <jsp:include page="menu.jsp"></jsp:include> 
         <c:if test="${param.error==1}"> 
             <font color="red">Usuario Invalido. Intentelo de nuevo</font> 
-        </c:if> 
-        <div class="container well"> 
-            <div align="center"> 
-                <h1> Iniciar Sesión</h1> 
-                <img src="avatar2.png" alt="Avatar" class="avatar"> 
-                <form action="EstudianteServlet?action=login" method="post"> 
-                    <table> 
-                        <tr> 
-                            <th><label><b>Identificación:</b></label></th> 
-                            <th> <input type="number" placeholder="Entre su id" class="form-control" name="username" required=""/> </th> 
-                        </tr> 
-                        <tr> 
-                            <th><label><b>Contraseña:</b></label></th>
-                            <th> <input type="password" placeholder="Entre su contraseña" class="form-control" name="password" required=""/> </th>
-                        </tr> 
-                        <div class="break"></div> 
-                        <tr> 
-                            <td colspan="2"> 
-                                <input class="btn btn-info btn-lg" type="submit" name="action" value="Login"> 
-                                <span class="glyphicon glyphicon-lock"></span> 
-                                <input class="btn icon-info btn-lg" type="reset" name="action" value="Reset"> 
-                                <span class="glyphicon glyphicon-remove"></span> 
-                            </td> 
-                        </tr> 
-                    </table> 
-                </form> 
-            </div> 
-        </div> 
+        </c:if>
+        <div class="modal-dialog text-center">
+            <div class="col-sm-8" style="margin: 0 auto;margin-top: 25%;padding: 0">
+                <div class="modal-content" style="background-color: #AAAAAA;padding: 0 20px;box-shadow: 0px 0px 3px #848484;border-radius: 5px">
+                    <div class="col-12">
+                        <img src="img/avatar2.png" width="100px" height="100px" style="margin-top: -50px;margin-bottom: 35px"/>
+                    </div>
+                    <form action="EstudianteServlet?action=login" method="post" class="col-12">
+                        <div class="form-group">
+                            <input type="number" class="form-control" placeholder="Identificación" name="username" required="" style="height: 42px;font-size: 18px;border: 0;border-radius: 5px"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" placeholder="Contraseña" name="password" required="" style="height: 42px;font-size: 18px;border: 0;border-radius: 5px"/>
+                        </div>
+                        <div class="mb-3">
+                            <button type="submit" name="action" class="btn btn-success mr-2">Ingresar</button>
+                            <button type="reset" name="action" class="btn btn-outline-primary">Reiniciar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </body> 
 </html> 
 
